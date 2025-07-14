@@ -1,0 +1,98 @@
+/* src/pages/Almanax.css */
+
+.almanax-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: auto;
+}
+
+.almanax-title {
+  background: #1c1c1c;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.almanax-description {
+  margin-top: 20px;
+  font-size: 16px;
+  text-align: center;
+}
+
+.almanax-item-wrapper {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.almanax-item-image {
+  display: inline-block;
+  background-color: #f2f2f2;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.almanax-item-image img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.almanax-item-text {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.almanax-level {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.almanax-level input {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  outline: none;
+  width: 60px;
+  text-align: center;
+}
+
+.almanax-level label {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #888;
+  display: block;
+}
+
+.almanax-rewards {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  font-size: 16px;
+}
+
+.almanax-back-button {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.almanax-back-button button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  color: #333;
+}
+
+.almanax-back-button button span {
+  font-size: 20px;
+  margin-right: 5px;
+}
+.almanax-back-button button:hover {
+  color: #007bff;
+}
