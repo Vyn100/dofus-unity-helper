@@ -1,0 +1,59 @@
+@font-face {
+  font-family: 'FlexiFalse';
+  src: url('../../assets/Flexi_IBM_VGA_False.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'FlexiTrue';
+  src: url('../../assets/Flexi_IBM_VGA_True.ttf') format('truetype');
+}
+.page-menu {
+  background: linear-gradient(to bottom, #fdf6e3, #f9e6bc);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'FlexiTrue', sans-serif;
+}
+
+.menu-container {
+  background: #fffef9;
+  padding: 40px;
+  border-radius: 14px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.menu-container h2 {
+  margin-bottom: 30px;
+  color: #352915;
+}
+
+.menu-buttons {
+  margin-bottom: 30px;
+}
+
+.menu-buttons button {
+  padding: 12px 20px;
+  margin: 0 10px;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #d5b25c;
+  color: #2d1d00;
+  transition: background 0.3s;
+}
+
+.menu-buttons button:hover {
+  background-color: #e7c96b;
+}
+
+.logout-btn {
+  color: red;
+  background: none;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}

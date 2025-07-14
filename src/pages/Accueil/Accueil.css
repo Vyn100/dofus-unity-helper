@@ -1,0 +1,77 @@
+@font-face {
+  font-family: 'FlexiFalse';
+  src: url('../../assets/Flexi_IBM_VGA_False.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'FlexiTrue';
+  src: url('../../assets/Flexi_IBM_VGA_True.ttf') format('truetype');
+}
+.page-accueil {
+  font-family: 'FlexiTrue', sans-serif;
+  background: linear-gradient(to bottom, #fdf5e6, #f5e1b4);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.accueil-card {
+  background: #fffaf0;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.accueil-card h2 {
+  margin-bottom: 20px;
+  color: #3a2e2e;
+}
+
+.accueil-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.accueil-card input {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #d0c5a0;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.accueil-card button[type="submit"] {
+  background: #d5b25c;
+  color: #2d1d00;
+  font-weight: bold;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.accueil-card button[type="submit"]:hover {
+  background: #e0c16e;
+}
+
+.accueil-error {
+  color: red;
+  margin-top: 10px;
+}
+
+.accueil-switch {
+  margin-top: 20px;
+}
+
+.accueil-switch button {
+  border: none;
+  background: none;
+  color: #007bff;
+  cursor: pointer;
+}

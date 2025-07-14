@@ -88,7 +88,7 @@ const Almanax = () => {
       </div>
 
       <div className="almanax-back-button">
-        <button onClick={() => navigate("/")}>
+        <button onClick={() => navigate("/menu")}>
           <span>←</span> Retour
         </button>
       </div>
