@@ -1,23 +1,37 @@
 /* src/pages/Almanax.css */
 
+@font-face {
+  font-family: "FlexiFalse";
+  src: url("../assets/Flexi_IBM_VGA_False.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "FlexiTrue";
+  src: url("../assets/Flexi_IBM_VGA_True.ttf") format("truetype");
+}
+
 .almanax-container {
   padding: 20px;
-  font-family: Arial, sans-serif;
-  max-width: 600px;
+  font-family: "FlexiTrue", sans-serif;
+  max-width: auto;
   margin: auto;
 }
 
 .almanax-title {
-  background: #1c1c1c;
-  color: white;
-  padding: 12px 20px;
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  font-family: "FlexiFalse", sans-serif;
+  background-color: #f0f0f0;
+  border: 2px solid #ccc;
   border-radius: 12px;
+  padding: 12px 20px;
   text-align: center;
 }
-
 .almanax-description {
   margin-top: 20px;
-  font-size: 16px;
+  font-size: 32px;
   text-align: center;
 }
 
@@ -34,14 +48,14 @@
 }
 
 .almanax-item-image img {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
 }
 
 .almanax-item-text {
   margin-top: 10px;
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .almanax-level {
@@ -61,7 +75,7 @@
 
 .almanax-level label {
   margin-top: 5px;
-  font-size: 14px;
+  font-size: 22px;
   color: #888;
   display: block;
 }
@@ -70,8 +84,8 @@
   margin-top: 20px;
   display: flex;
   justify-content: center;
-  gap: 40px;
-  font-size: 16px;
+  gap: 20rem;
+  font-size: 28px;
 }
 
 .almanax-back-button {
