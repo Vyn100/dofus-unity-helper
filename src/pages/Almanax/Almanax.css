@@ -158,3 +158,22 @@
   z-index: 2;
   position: relative;
 }
+
+.almanax-confirm-button {
+  margin-top: 15px;
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  font-family: inherit;
+  font-weight: bold;
+  border-radius: 10px;
+  border: 2px solid gold;
+  background: linear-gradient(to right, #3d2d54, #2a1d3b);
+  color: gold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.almanax-confirm-button:hover {
+  box-shadow: 0 0 10px gold;
+  transform: scale(1.05);
+}

@@ -132,3 +132,52 @@
   cursor: pointer;
   font-family: "FlexiFalse", monospace;
 }
+
+.account-btn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.account-btn img {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 2;
+  border-radius: 10px;
+  transition: transform 0.25s ease-in-out;
+}
+
+.account-glow {
+  position: absolute;
+  top: -40%;
+  left: -40%;
+  width: 150%;
+  height: 150%;
+  z-index: 1;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+.account-btn:hover .account-glow {
+  opacity: 1;
+  background: radial-gradient(
+    circle,
+    rgba(255, 217, 0, 0.259) 0%,
+    transparent 80%
+  );
+  filter: blur(15px);
+}
+
+.account-btn:hover img {
+  transform: scale(1.2);
+}

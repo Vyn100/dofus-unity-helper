@@ -21,7 +21,7 @@ body,
 body {
   font-family: "FlexiTrue", monospace;
   color: #fff8dc;
-  background: radial-gradient(ellipse at center, #2e2540 0%, #1e192e 100%);
+  background: radial-gradient(ellipse at center, #110624 0%, #060017 100%);
 }
 
 #root {
@@ -37,9 +37,33 @@ body {
 .wrapper {
   width: 100%;
   height: 100%;
-  background: radial-gradient(ellipse at center, #2e2540 0%, #1e192e 100%);
+  background: radial-gradient(ellipse at center, #110624 0%, #060017 100%);
   border: 2px solid gold;
   border-radius: 20px;
   box-sizing: border-box;
   padding: 20px;
+}
+
+.cosmic-transition {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at center, #2e2540 0%, #000000 100%);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+.cosmic-transition.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.cosmic-stars::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/assets/stars.gif"); /* un gif étoilé ou une animation canvas */
+  opacity: 0.3;
+  mix-blend-mode: screen;
 }

@@ -1,5 +1,5 @@
 import "./Almanax.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BackIcon from "../../assets/Back.png";
 import KamasIcon from "../../assets/Kamas.png";
@@ -7,8 +7,9 @@ import XPIcon from "../../assets/XP.png";
 
 const Almanax = () => {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [level, setLevel] = useState(100);
+  const [confirmed, setConfirmed] = useState(false);
   const navigate = useNavigate();
 
   const fetchAlmanax = async (levelValue) => {
@@ -18,7 +19,7 @@ const Almanax = () => {
       const response = await fetch(
         `https://api.dofusdu.de/dofus3/v1/fr/almanax/${today}?level=${levelValue}`
       );
-      if (!response.ok) return;
+      if (!response.ok) throw new Error("Réponse invalide");
       const json = await response.json();
       setData(json);
     } catch (err) {
@@ -28,71 +29,80 @@ const Almanax = () => {
     }
   };
 
-  useEffect(() => {
-    fetchAlmanax(level);
-  }, []);
-
-  useEffect(() => {
-    const parsedLevel = parseInt(level);
-    if (isNaN(parsedLevel) || parsedLevel < 1 || parsedLevel > 200) return;
-    fetchAlmanax(parsedLevel);
-  }, [level]);
-
-  if (loading) return <p>Chargement...</p>;
-  if (!data) return <p>Erreur de chargement.</p>;
+  const handleConfirm = () => {
+    const parsed = parseInt(level);
+    if (isNaN(parsed) || parsed < 1 || parsed > 200) return;
+    setConfirmed(true);
+    fetchAlmanax(parsed);
+  };
 
   return (
     <div className="almanax-container">
-      <h2 className="almanax-title">
-        Almanax du{" "}
-        {new Date(data.date).toLocaleDateString("fr-FR", {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        })}
-      </h2>
-
-      <p className="almanax-description">{data.bonus.description}</p>
-
-      {data.tribute && data.tribute.item && (
-        <div className="almanax-item-wrapper">
-          <div className="almanax-image-wrapper">
-            <div className="almanax-glow" />
-            <img
-              src={data.tribute.item.image_urls.sd}
-              alt={data.tribute.item.name}
-              className="almanax-image"
+      {!confirmed ? (
+        <>
+          <h2 className="almanax-title">Quel est ton niveau ?</h2>
+          <div className="almanax-level">
+            <input
+              type="number"
+              min="1"
+              max="200"
+              value={level}
+              onChange={(e) => setLevel(e.target.value)}
             />
+            <label>Niveau du personnage</label>
+            <button onClick={handleConfirm} className="almanax-confirm-button">
+              Confirmer
+            </button>
           </div>
-          <p className="almanax-item-text">
-            <span className="highlight">Tu dois ramener :</span>{" "}
-            <strong>{data.tribute.item.name}</strong> x{data.tribute.quantity}
-          </p>
-        </div>
+        </>
+      ) : loading ? (
+        <p>Chargement...</p>
+      ) : data ? (
+        <>
+          <h2 className="almanax-title">
+            Almanax du{" "}
+            {new Date(data.date).toLocaleDateString("fr-FR", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </h2>
+
+          <p className="almanax-description">{data.bonus.description}</p>
+
+          {data.tribute?.item && (
+            <div className="almanax-item-wrapper">
+              <div className="almanax-image-wrapper">
+                <div className="almanax-glow" />
+                <img
+                  src={data.tribute.item.image_urls.sd}
+                  alt={data.tribute.item.name}
+                  className="almanax-image"
+                />
+              </div>
+              <p className="almanax-item-text">
+                <span className="highlight">Tu dois ramener :</span>{" "}
+                <strong>{data.tribute.item.name}</strong> x
+                {data.tribute.quantity}
+              </p>
+            </div>
+          )}
+
+          <div className="almanax-rewards">
+            <p>
+              XP : <strong>{data.reward_xp.toLocaleString()}</strong>
+              <img src={XPIcon} alt="XP" className="xp-icon" />
+            </p>
+            <p>
+              Kamas : <strong>{data.reward_kamas.toLocaleString()}</strong>
+              <img src={KamasIcon} alt="Kamas" className="kamas-icon" />
+            </p>
+          </div>
+        </>
+      ) : (
+        <p>Erreur de chargement.</p>
       )}
-
-      <div className="almanax-level">
-        <input
-          type="number"
-          min="1"
-          max="200"
-          value={level}
-          onChange={(e) => setLevel(e.target.value)}
-        />
-        <label>Niveau du personnage</label>
-      </div>
-
-      <div className="almanax-rewards">
-        <p>
-          XP : <strong>{data.reward_xp.toLocaleString()}</strong>
-          <img src={XPIcon} alt="XP" className="xp-icon" />
-        </p>
-        <p>
-          Kamas : <strong>{data.reward_kamas.toLocaleString()}</strong>
-          <img src={KamasIcon} alt="Kamas" className="kamas-icon" />
-        </p>
-      </div>
 
       <div className="almanax-back-button">
         <button onClick={() => navigate("/menu")}>
