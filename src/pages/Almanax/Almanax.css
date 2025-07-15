@@ -9,102 +9,152 @@
 }
 
 .almanax-container {
-  padding: 20px;
-  font-family: "FlexiTrue", sans-serif;
-  max-width: auto;
-  margin: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 20px;
+  position: relative;
+  text-align: center;
 }
 
 .almanax-title {
-  font-size: 36px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 20px;
-  font-family: "FlexiFalse", sans-serif;
-  background-color: #f0f0f0;
-  border: 2px solid #ccc;
-  border-radius: 12px;
-  padding: 12px 20px;
-  text-align: center;
+  font-family: "FlexiFalse", monospace;
+  font-size: 1.8rem;
+  padding: 10px 25px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  border: 2px solid gold;
+  color: #fff8dc;
+  text-shadow: 1px 1px #000;
+  margin-bottom: 25px;
 }
+
 .almanax-description {
-  margin-top: 20px;
-  font-size: 32px;
-  text-align: center;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
 }
 
 .almanax-item-wrapper {
-  margin-top: 30px;
-  text-align: center;
+  margin: 20px 0 20px 0px;
 }
 
 .almanax-item-image {
   display: inline-block;
-  background-color: #f2f2f2;
-  padding: 10px;
+  padding: 14px;
   border-radius: 10px;
-}
-
-.almanax-item-image img {
-  width: 200px;
-  height: 200px;
-  object-fit: contain;
+  border: 2px solid gold;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); /* glow doré */
+  margin-bottom: 15px;
 }
 
 .almanax-item-text {
-  margin-top: 10px;
-  font-size: 20px;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.highlight {
+  color: gold;
+  font-weight: bold;
 }
 
 .almanax-level {
-  margin-top: 30px;
-  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 .almanax-level input {
-  padding: 8px 12px;
-  font-size: 16px;
+  font-family: "FlexiFalse";
+  padding: 6px 10px;
+  font-size: 1rem;
   border: none;
   border-bottom: 2px solid #ccc;
-  outline: none;
-  width: 60px;
+  background: transparent;
   text-align: center;
+  width: 90px;
+  color: white;
 }
 
 .almanax-level label {
-  margin-top: 5px;
-  font-size: 22px;
-  color: #888;
   display: block;
+  font-size: 1rem;
+  color: #bbb;
+  margin-top: 6px;
+  width: 180px;
+  font-family: "FlexiFalse", sans-serif;
 }
 
 .almanax-rewards {
-  margin-top: 20px;
   display: flex;
   justify-content: center;
-  gap: 20rem;
-  font-size: 28px;
+  gap: 16rem;
+  font-size: 2rem;
+  margin-bottom: 60px; /* plus bas que l’image mais pas collé au bas */
+}
+
+.kamas-icon,
+.xp-icon {
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
 }
 
 .almanax-back-button {
-  margin-top: 50px;
-  text-align: center;
+  position: absolute;
+  bottom: 75px; /* plus haut qu’avant */
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .almanax-back-button button {
   background: none;
   border: none;
-  font-size: 16px;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  color: #333;
+  transition: all 0.2s ease;
 }
 
-.almanax-back-button button span {
-  font-size: 20px;
-  margin-right: 5px;
+.almanax-back-button img {
+  width: 120px;
+  height: 80px;
+  transition: transform 0.15s ease-in-out, filter 0.15s ease-in-out;
+  filter: drop-shadow(0 0 0 transparent);
 }
-.almanax-back-button button:hover {
-  color: #007bff;
+
+.almanax-back-button button:hover img {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 5px #ffe066);
+}
+
+.almanax-image-wrapper {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.almanax-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 217, 0, 0.259) 0%,
+    transparent 70%
+  );
+  filter: blur(5px);
+  z-index: 1;
+}
+
+.almanax-image {
+  width: 250px;
+  height: 250px;
+  border-radius: 20px;
+  border: 2px solid gold;
+  object-fit: contain;
+  z-index: 2;
+  position: relative;
 }

@@ -43,6 +43,7 @@
 
 .menu-separateur {
   height: 30px;
+  width: 400px;
   margin: 20px auto 20px auto;
   pointer-events: none;
   user-select: none;

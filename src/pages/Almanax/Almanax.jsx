@@ -1,6 +1,9 @@
 import "./Almanax.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BackIcon from "../../assets/Back.png";
+import KamasIcon from "../../assets/Kamas.png";
+import XPIcon from "../../assets/XP.png";
 
 const Almanax = () => {
   const [data, setData] = useState(null);
@@ -54,15 +57,17 @@ const Almanax = () => {
 
       {data.tribute && data.tribute.item && (
         <div className="almanax-item-wrapper">
-          <div className="almanax-item-image">
+          <div className="almanax-image-wrapper">
+            <div className="almanax-glow" />
             <img
               src={data.tribute.item.image_urls.sd}
               alt={data.tribute.item.name}
+              className="almanax-image"
             />
           </div>
           <p className="almanax-item-text">
-            Tu dois ramener : <strong>{data.tribute.item.name}</strong> x
-            {data.tribute.quantity}
+            <span className="highlight">Tu dois ramener :</span>{" "}
+            <strong>{data.tribute.item.name}</strong> x{data.tribute.quantity}
           </p>
         </div>
       )}
@@ -81,15 +86,17 @@ const Almanax = () => {
       <div className="almanax-rewards">
         <p>
           XP : <strong>{data.reward_xp.toLocaleString()}</strong>
+          <img src={XPIcon} alt="XP" className="xp-icon" />
         </p>
         <p>
           Kamas : <strong>{data.reward_kamas.toLocaleString()}</strong>
+          <img src={KamasIcon} alt="Kamas" className="kamas-icon" />
         </p>
       </div>
 
       <div className="almanax-back-button">
         <button onClick={() => navigate("/menu")}>
-          <span>←</span> Retour
+          <img src={BackIcon} alt="Retour" />
         </button>
       </div>
     </div>
