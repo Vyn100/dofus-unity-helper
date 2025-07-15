@@ -1,59 +1,133 @@
 @font-face {
-  font-family: 'FlexiFalse';
-  src: url('../../assets/Flexi_IBM_VGA_False.ttf') format('truetype');
+  font-family: "FlexiFalse";
+  src: url("../../assets/Flexi_IBM_VGA_False.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: 'FlexiTrue';
-  src: url('../../assets/Flexi_IBM_VGA_True.ttf') format('truetype');
-}
-.page-menu {
-  background: linear-gradient(to bottom, #fdf6e3, #f9e6bc);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'FlexiTrue', sans-serif;
+  font-family: "FlexiTrue";
+  src: url("../../assets/Flexi_IBM_VGA_True.ttf") format("truetype");
 }
 
-.menu-container {
-  background: #fffef9;
-  padding: 40px;
-  border-radius: 14px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+.menu-page {
+  height: 100%;
+  font-family: "FlexiTrue", monospace;
+  padding: 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.menu-inner {
+  flex-grow: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.menu-title {
+  font-size: 5rem;
+  color: #fff8dc;
+  text-shadow: 3px 3px 0 #d4a71e;
+  line-height: 1.2;
+  margin: 15px auto 30px auto;
+}
+
+.pseudo {
+  color: #fce96a;
+}
+
+.menu-separateur {
+  height: 30px;
+  margin: 20px auto 20px auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.menu-description {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  margin: auto auto 30px auto;
+  line-height: 1.6;
+}
+
+.menu-description p {
+  margin: 3px 0;
+  justify-content: center;
   text-align: center;
 }
 
-.menu-container h2 {
-  margin-bottom: 30px;
-  color: #352915;
+.menu-box {
+  background-color: #1b1328;
+  border: 2px solid gold;
+  border-radius: 15px;
+  padding: 30px 40px;
+  width: 800px;
+  height: 350px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center; /* centrer verticalement */
+  justify-content: center;
+  gap: 50px;
+  box-shadow: 0 0 15px #00000066;
 }
 
-.menu-buttons {
-  margin-bottom: 30px;
-}
-
-.menu-buttons button {
-  padding: 12px 20px;
-  margin: 0 10px;
+.menu-button {
+  font-family: inherit;
   font-weight: bold;
-  font-size: 16px;
-  border: none;
+  font-size: 1.2rem;
+  padding: 16px 24px;
+  width: 180px; /* largeur fixe raisonnable */
+  height: 80px; /* hauteur fixe pour l'uniformité */
+  background: linear-gradient(145deg, #1f1f1f, #2c2c2c);
+  color: #fff8dc;
+  border: 2px solid #d4a71e;
   border-radius: 10px;
+  box-shadow: 0 0 10px #d4a71e88;
   cursor: pointer;
-  background-color: #d5b25c;
-  color: #2d1d00;
-  transition: background 0.3s;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column; /* icône au-dessus du texte */
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
-.menu-buttons button:hover {
-  background-color: #e7c96b;
+.menu-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px #ffe066;
 }
 
+.menu-icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+.logout-btn img.logout-icon {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.logout-btn:hover img.logout-icon {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 5px gold);
+}
 .logout-btn {
-  color: red;
+  position: absolute;
+  top: 25px;
+  left: 25px;
   background: none;
-  font-size: 14px;
   border: none;
+  color: gold;
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  gap: 6px;
   cursor: pointer;
+  font-family: "FlexiFalse", monospace;
 }

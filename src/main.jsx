@@ -22,6 +22,8 @@ const App = () => {
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <div className="wrapper">
+      <App />
+    </div>
   </React.StrictMode>
 );

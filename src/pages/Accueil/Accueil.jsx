@@ -2,6 +2,7 @@ import { useState } from "react";
 import { supabase } from "../../supabase";
 import { useNavigate } from "react-router-dom";
 import "./Accueil.css";
+import separateur from "../../assets/SeparateurHorizontalDofus.png";
 
 const Accueil = () => {
   const [pseudo, setPseudo] = useState("");
@@ -61,10 +62,15 @@ const Accueil = () => {
   };
 
   return (
-    <div className="page-accueil">
+    <div className="accueil-page">
+      <h1 className="accueil-title">
+        Bienvenue sur
+        <br />
+        Dofus Helper
+      </h1>
+      <img src={separateur} alt="séparateur" className="accueil-separateur" />
       <div className="accueil-card">
-        <h2>{isSignUp ? "Créer un compte" : "Connexion"}</h2>
-
+        <h2>Connexion</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -87,9 +93,12 @@ const Accueil = () => {
 
         <p className="accueil-switch">
           {isSignUp ? "Déjà un compte ?" : "Pas encore inscrit ?"}{" "}
-          <button onClick={() => setIsSignUp(!isSignUp)}>
+          <span
+            className="accueil-switch-link"
+            onClick={() => setIsSignUp(!isSignUp)}
+          >
             {isSignUp ? "Se connecter" : "Créer un compte"}
-          </button>
+          </span>
         </p>
       </div>
     </div>
