@@ -80,10 +80,10 @@
 .menu-button {
   font-family: inherit;
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   padding: 16px 24px;
   width: 180px; /* largeur fixe raisonnable */
-  height: 80px; /* hauteur fixe pour l'uniformité */
+  height: 100px; /* hauteur fixe pour l'uniformité */
   background: linear-gradient(145deg, #1f1f1f, #2c2c2c);
   color: #fff8dc;
   border: 2px solid #d4a71e;
@@ -99,13 +99,13 @@
 }
 
 .menu-button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-6px);
   box-shadow: 0 0 20px #ffe066;
 }
 
 .menu-icon {
-  width: 28px;
-  height: 28px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
 }
 .logout-btn img.logout-icon {

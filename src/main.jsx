@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 import Almanax from "./pages/Almanax/Almanax";
-import Search from "./pages/Search/Search";
+import Ressources from "./pages/Ressources/Ressources";
 import Accueil from "./pages/Accueil/Accueil";
 import Menu from "./pages/Menu/Menu";
 
@@ -14,7 +14,7 @@ const App = () => {
         <Route path="/" element={<Accueil />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/almanax" element={<Almanax />} />
-        <Route path="/search" element={<Search />} />
+        <Route path="/ressources" element={<Ressources />} />
       </Routes>
     </BrowserRouter>
   );

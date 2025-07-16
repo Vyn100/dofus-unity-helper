@@ -8,7 +8,7 @@
   src: url("../../assets/Flexi_IBM_VGA_True.ttf") format("truetype");
 }
 
-.almanax-container {
+.ressources-container {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -18,7 +18,7 @@
   text-align: center;
 }
 
-.almanax-title {
+.ressources-title {
   font-family: "FlexiFalse", monospace;
   font-size: 2rem;
   padding: 10px 25px;
@@ -30,17 +30,17 @@
   margin-bottom: 25px;
 }
 
-.almanax-description {
+.ressources-description {
   font-size: 1.5rem;
   margin-bottom: 15px;
   width: 80%;
 }
 
-.almanax-item-wrapper {
+.ressources-item-wrapper {
   margin: 20px 0 20px 0px;
 }
 
-.almanax-item-image {
+.ressources-item-image {
   display: inline-block;
   padding: 14px;
   border-radius: 10px;
@@ -49,7 +49,7 @@
   margin-bottom: 15px;
 }
 
-.almanax-item-text {
+.ressources-item-text {
   font-size: 1.3rem;
   margin-bottom: 10px;
 }
@@ -59,12 +59,12 @@
   font-weight: bold;
 }
 
-.almanax-level {
+.ressources-level {
   margin-top: 10px;
   margin-bottom: 30px;
 }
 
-.almanax-level input {
+.ressources-level input {
   font-family: "FlexiFalse";
   padding: 6px 10px;
   font-size: 1rem;
@@ -76,7 +76,7 @@
   color: white;
 }
 
-.almanax-level label {
+.ressources-level label {
   display: block;
   font-size: 1rem;
   color: #bbb;
@@ -85,7 +85,7 @@
   font-family: "FlexiFalse", sans-serif;
 }
 
-.almanax-rewards {
+.ressources-rewards {
   display: flex;
   justify-content: center;
   gap: 16rem;
@@ -100,33 +100,33 @@
   margin-left: 8px;
 }
 
-.almanax-back-button {
+.ressources-back-button {
   position: absolute;
   bottom: 75px; /* plus haut qu’avant */
   left: 50%;
   transform: translateX(-50%);
 }
 
-.almanax-back-button button {
+.ressources-back-button button {
   background: none;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.almanax-back-button img {
+.ressources-back-button img {
   width: 120px;
   height: 80px;
   transition: transform 0.15s ease-in-out, filter 0.15s ease-in-out;
   filter: drop-shadow(0 0 0 transparent);
 }
 
-.almanax-back-button button:hover img {
+.ressources-back-button button:hover img {
   transform: scale(1.05);
   filter: drop-shadow(0 0 5px #ffe066);
 }
 
-.almanax-image-wrapper {
+.ressources-image-wrapper {
   position: relative;
   width: 250px;
   height: 250px;
@@ -136,7 +136,7 @@
   justify-content: center;
 }
 
-.almanax-glow {
+.ressources-glow {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -150,7 +150,7 @@
   z-index: 1;
 }
 
-.almanax-image {
+.ressources-image {
   width: 250px;
   height: 250px;
   border-radius: 20px;
@@ -160,7 +160,7 @@
   position: relative;
 }
 
-.almanax-confirm-button {
+.ressources-confirm-button {
   margin-top: 15px;
   font-size: 1.1rem;
   padding: 10px 20px;
@@ -174,16 +174,16 @@
   transition: all 0.2s ease;
 }
 
-.almanax-confirm-button:hover {
+.ressources-confirm-button:hover {
   box-shadow: 0 0 10px gold;
   transform: scale(1.05);
 }
 
-.almanax-container {
+.ressources-container {
   opacity: 0;
   transition: opacity 0.6s ease-in-out;
 }
 
-.almanax-container.visible {
+.ressources-container.visible {
   opacity: 1;
 }

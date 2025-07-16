@@ -1,16 +1,36 @@
 import "./Almanax.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BackIcon from "../../assets/Back.png";
 import KamasIcon from "../../assets/Kamas.png";
 import XPIcon from "../../assets/XP.png";
+import AlmanaxTransition from "../../components/Transition/AlmanaxTransition";
 
 const Almanax = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [level, setLevel] = useState(100);
+  const [visible, setVisible] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const [transitionVisible, setTransitionVisible] = useState(false);
   const navigate = useNavigate();
+
+  // Transition d’apparition
+  useEffect(() => {
+    const timeout = setTimeout(() => setVisible(true), 400);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  // Transition visuelle après clic sur bouton Almanax
+  useEffect(() => {
+    if (localStorage.getItem("almanaxTransition") === "true") {
+      setTransitionVisible(true);
+      localStorage.removeItem("almanaxTransition");
+      setTimeout(() => {
+        setTransitionVisible(false);
+      }, 1000); // durée de l'animation
+    }
+  }, []);
 
   const fetchAlmanax = async (levelValue) => {
     try {
@@ -37,79 +57,85 @@ const Almanax = () => {
   };
 
   return (
-    <div className="almanax-container">
-      {!confirmed ? (
-        <>
-          <h2 className="almanax-title">Quel est ton niveau ?</h2>
-          <div className="almanax-level">
-            <input
-              type="number"
-              min="1"
-              max="200"
-              value={level}
-              onChange={(e) => setLevel(e.target.value)}
-            />
-            <label>Niveau du personnage</label>
-            <button onClick={handleConfirm} className="almanax-confirm-button">
-              Confirmer
-            </button>
-          </div>
-        </>
-      ) : loading ? (
-        <p>Chargement...</p>
-      ) : data ? (
-        <>
-          <h2 className="almanax-title">
-            Almanax du{" "}
-            {new Date(data.date).toLocaleDateString("fr-FR", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </h2>
+    <>
+      {transitionVisible && <AlmanaxTransition active={true} />}
+      <div className={`almanax-container ${visible ? "visible" : ""}`}>
+        {!confirmed ? (
+          <>
+            <h2 className="almanax-title">Quel est ton niveau ?</h2>
+            <div className="almanax-level">
+              <input
+                type="number"
+                min="1"
+                max="200"
+                value={level}
+                onChange={(e) => setLevel(e.target.value)}
+              />
+              <label>Niveau du personnage</label>
+              <button
+                onClick={handleConfirm}
+                className="almanax-confirm-button"
+              >
+                Confirmer
+              </button>
+            </div>
+          </>
+        ) : loading ? (
+          <p>Chargement...</p>
+        ) : data ? (
+          <>
+            <h2 className="almanax-title">
+              Almanax du{" "}
+              {new Date(data.date).toLocaleDateString("fr-FR", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </h2>
 
-          <p className="almanax-description">{data.bonus.description}</p>
+            <p className="almanax-description">{data.bonus.description}</p>
 
-          {data.tribute?.item && (
-            <div className="almanax-item-wrapper">
-              <div className="almanax-image-wrapper">
-                <div className="almanax-glow" />
-                <img
-                  src={data.tribute.item.image_urls.sd}
-                  alt={data.tribute.item.name}
-                  className="almanax-image"
-                />
+            {data.tribute?.item && (
+              <div className="almanax-item-wrapper">
+                <div className="almanax-image-wrapper">
+                  <div className="almanax-glow" />
+                  <img
+                    src={data.tribute.item.image_urls.sd}
+                    alt={data.tribute.item.name}
+                    className="almanax-image"
+                  />
+                </div>
+                <p className="almanax-item-text">
+                  <span className="highlight">Tu dois ramener :</span>{" "}
+                  <strong>{data.tribute.item.name}</strong> x
+                  {data.tribute.quantity}
+                </p>
               </div>
-              <p className="almanax-item-text">
-                <span className="highlight">Tu dois ramener :</span>{" "}
-                <strong>{data.tribute.item.name}</strong> x
-                {data.tribute.quantity}
+            )}
+
+            <div className="almanax-rewards">
+              <p>
+                <strong>{data.reward_xp.toLocaleString()}</strong>
+                <img src={XPIcon} alt="XP" className="xp-icon" />
+              </p>
+              <p>
+                <strong>{data.reward_kamas.toLocaleString()}</strong>
+                <img src={KamasIcon} alt="Kamas" className="kamas-icon" />
               </p>
             </div>
-          )}
+          </>
+        ) : (
+          <p>Erreur de chargement.</p>
+        )}
 
-          <div className="almanax-rewards">
-            <p>
-              XP : <strong>{data.reward_xp.toLocaleString()}</strong>
-              <img src={XPIcon} alt="XP" className="xp-icon" />
-            </p>
-            <p>
-              Kamas : <strong>{data.reward_kamas.toLocaleString()}</strong>
-              <img src={KamasIcon} alt="Kamas" className="kamas-icon" />
-            </p>
-          </div>
-        </>
-      ) : (
-        <p>Erreur de chargement.</p>
-      )}
-
-      <div className="almanax-back-button">
-        <button onClick={() => navigate("/menu")}>
-          <img src={BackIcon} alt="Retour" />
-        </button>
+        <div className="almanax-back-button">
+          <button onClick={() => navigate("/menu")}>
+            <img src={BackIcon} alt="Retour" />
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
