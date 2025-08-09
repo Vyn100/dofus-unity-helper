@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Ressources.css";
+import { useNavigate } from "react-router-dom";
+import Logout from "../../assets/Logout.png";
 
 const Ressources = () => {
+  const navigate = useNavigate();
   const [allResources, setAllResources] = useState([]);
   const [filteredResources, setFilteredResources] = useState([]);
   const [search, setSearch] = useState("");
@@ -10,61 +13,118 @@ const Ressources = () => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [loading, setLoading] = useState(true);
 
-  const [displayCount, setDisplayCount] = useState(30); // Affichage progressif
+  // Pagination (infinite scroll)
+  const [displayCount, setDisplayCount] = useState(30);
+  const batchSize = 30;
 
-  // 1. Appel API unique
+  // Refs pour l'observer
+  const gridRef = useRef(null);
+  const sentinelRef = useRef(null);
+  const observerRef = useRef(null);
+
+  // 1) Fetch unique
   useEffect(() => {
-    const fetchResources = async () => {
+    const controller = new AbortController();
+    (async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          "https://api.dofusdu.de/dofus3/v1/fr/items/resources/all"
+        const res = await fetch(
+          "https://api.dofusdu.de/dofus3/v1/fr/items/resources/all",
+          { signal: controller.signal }
         );
-        if (!response.ok) throw new Error("Erreur API ressources");
-        const json = await response.json();
-
-        const resources = json.items || [];
-        setAllResources(resources);
-        setFilteredResources(resources);
-      } catch (error) {
-        console.error("Erreur API ressources :", error);
+        if (!res.ok) throw new Error("Erreur API ressources");
+        const json = await res.json();
+        const items = json.items || [];
+        setAllResources(items);
+        setFilteredResources(items);
+      } catch (e) {
+        if (e.name !== "AbortError")
+          console.error("Erreur API ressources :", e);
       } finally {
         setLoading(false);
       }
-    };
-
-    fetchResources();
+    })();
+    return () => controller.abort();
   }, []);
 
-  // 2. Filtrage dynamique côté client
+  // 2) Filtrage + tri client
   useEffect(() => {
-    let filtered = allResources.filter((res) => {
-      const name = res.name?.toLowerCase() || "";
-      const matchesSearch = name.includes(search.toLowerCase());
-      const matchesLevel =
-        (!minLevel || res.level >= parseInt(minLevel)) &&
-        (!maxLevel || res.level <= parseInt(maxLevel));
-      return matchesSearch && matchesLevel;
+    let out = allResources.filter((r) => {
+      const name = (r.name || "").toLowerCase();
+      const okSearch = !search || name.includes(search.toLowerCase());
+      const lv = r.level ?? 0;
+      const okLevel =
+        (!minLevel || lv >= parseInt(minLevel)) &&
+        (!maxLevel || lv <= parseInt(maxLevel));
+      return okSearch && okLevel;
     });
 
-    filtered.sort((a, b) =>
+    out.sort((a, b) =>
       sortOrder === "asc" ? a.level - b.level : b.level - a.level
     );
 
-    setFilteredResources(filtered);
-    setDisplayCount(30); // Reset pagination au filtrage
+    setFilteredResources(out);
+    setDisplayCount(batchSize);
+
+    // remonte en haut de la grille au changement de filtres
+    if (gridRef.current)
+      gridRef.current.scrollTo({ top: 0, behavior: "instant" });
   }, [search, minLevel, maxLevel, sortOrder, allResources]);
 
-  const handleLoadMore = () => {
-    setDisplayCount((prev) => prev + 30);
+  const hasMore = displayCount < filteredResources.length;
+
+  // 3) IntersectionObserver pour l’infinite scroll
+  useEffect(() => {
+    if (!gridRef.current || !sentinelRef.current) return;
+
+    // Nettoie l’observer précédent (si filtres changent)
+    if (observerRef.current) observerRef.current.disconnect();
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting && hasMore) {
+          setDisplayCount((n) => n + batchSize);
+        }
+      },
+      {
+        root: gridRef.current, // observe dans la grille scrollable
+        rootMargin: "0px 0px 200px 0px", // déclenche un peu avant le bas
+        threshold: 0.1,
+      }
+    );
+
+    observerRef.current.observe(sentinelRef.current);
+    return () => observerRef.current && observerRef.current.disconnect();
+  }, [hasMore, filteredResources.length]);
+
+  const handleReset = () => {
+    setSearch("");
+    setMinLevel("");
+    setMaxLevel("");
+    setSortOrder("asc");
+    setDisplayCount(batchSize);
+    if (gridRef.current)
+      gridRef.current.scrollTo({ top: 0, behavior: "instant" });
+  };
+  const handleReturnMenu = () => {
+    navigate("/menu");
   };
 
   return (
     <div className="ressources-container">
-      <h1 className="ressources-title">📦 Ressources</h1>
+      {/* Bouton retour menu */}
+      <button className="logout-btn" onClick={handleReturnMenu}>
+        <img src={Logout} alt="Retour au menu" className="logout-icon" />
+      </button>
 
-      {/* Barre de recherche et filtres */}
-      <div className="ressources-filters">
+      <h1 className="ressources-title">📦 Ressources</h1>
+      {/* Filtres */}
+      <div
+        className="ressources-filters"
+        role="group"
+        aria-label="Filtres ressources"
+      >
         <input
           type="text"
           placeholder="Rechercher une ressource..."
@@ -90,51 +150,52 @@ const Ressources = () => {
           <option value="asc">Niveau ↑</option>
           <option value="desc">Niveau ↓</option>
         </select>
-        <button
-          onClick={() => {
-            setSearch("");
-            setMinLevel("");
-            setMaxLevel("");
-            setSortOrder("asc");
-            setDisplayCount(30);
-          }}
-        >
-          Réinitialiser
-        </button>
+        <button onClick={handleReset}>Réinitialiser</button>
       </div>
 
       {/* Contenu */}
       {loading ? (
         <p className="loading-text">Chargement des ressources...</p>
       ) : (
-        <>
-          <div className="ressources-grid">
+        <div className="cards-frame">
+          {/* fades visuels top/bottom */}
+          <div className="cards-fade cards-fade--top" aria-hidden="true" />
+          <div className="cards-fade cards-fade--bottom" aria-hidden="true" />
+
+          <div
+            className="ressources-grid"
+            ref={gridRef}
+            aria-live="polite"
+            aria-busy={loading ? "true" : "false"}
+          >
             {filteredResources.length > 0 ? (
               filteredResources.slice(0, displayCount).map((res) => (
-                <div key={res.ankama_id} className="ressource-card">
+                <article
+                  key={res.ankama_id}
+                  className="ressource-card"
+                  title={res.name}
+                  tabIndex={0}
+                >
                   <img
                     src={res.image_urls?.icon || res.image_urls?.sd}
                     alt={res.name}
                     loading="lazy"
                   />
-                  <h3>{res.name}</h3>
+                  <h3 className="ressource-name">{res.name}</h3>
                   <p className="ressource-level">Niveau : {res.level}</p>
                   {res.type && (
                     <p className="ressource-type">{res.type.name}</p>
                   )}
-                </div>
+                </article>
               ))
             ) : (
               <p className="no-result">Aucune ressource trouvée.</p>
             )}
-          </div>
 
-          {displayCount < filteredResources.length && (
-            <div className="load-more">
-              <button onClick={handleLoadMore}>Charger plus</button>
-            </div>
-          )}
-        </>
+            {/* Sentinel pour l’infinite scroll */}
+            <div ref={sentinelRef} className="infinite-sentinel" />
+          </div>
+        </div>
       )}
     </div>
   );
