@@ -1,16 +1,21 @@
 import { useEffect, useRef, useState } from "react";
-import "./Ressources.css";
 import { useNavigate } from "react-router-dom";
-import Logout from "../../assets/Logout.png";
+import "./Ressources.css";
+import Logout from "../../assets/Logout.png"; // icône bouton retour
 
 const Ressources = () => {
   const navigate = useNavigate();
+
   const [allResources, setAllResources] = useState([]);
   const [filteredResources, setFilteredResources] = useState([]);
+
   const [search, setSearch] = useState("");
   const [minLevel, setMinLevel] = useState("");
   const [maxLevel, setMaxLevel] = useState("");
   const [sortOrder, setSortOrder] = useState("asc");
+  const [typeFilter, setTypeFilter] = useState("all");
+  const [types, setTypes] = useState([]);
+
   const [loading, setLoading] = useState(true);
 
   // Pagination (infinite scroll)
@@ -37,6 +42,13 @@ const Ressources = () => {
         const items = json.items || [];
         setAllResources(items);
         setFilteredResources(items);
+
+        // liste des types disponibles
+        const uniqueTypes = [
+          "all",
+          ...new Set(items.map((r) => r?.type?.name).filter(Boolean)),
+        ];
+        setTypes(uniqueTypes);
       } catch (e) {
         if (e.name !== "AbortError")
           console.error("Erreur API ressources :", e);
@@ -56,7 +68,8 @@ const Ressources = () => {
       const okLevel =
         (!minLevel || lv >= parseInt(minLevel)) &&
         (!maxLevel || lv <= parseInt(maxLevel));
-      return okSearch && okLevel;
+      const okType = typeFilter === "all" || r?.type?.name === typeFilter;
+      return okSearch && okLevel && okType;
     });
 
     out.sort((a, b) =>
@@ -69,7 +82,7 @@ const Ressources = () => {
     // remonte en haut de la grille au changement de filtres
     if (gridRef.current)
       gridRef.current.scrollTo({ top: 0, behavior: "instant" });
-  }, [search, minLevel, maxLevel, sortOrder, allResources]);
+  }, [search, minLevel, maxLevel, sortOrder, typeFilter, allResources]);
 
   const hasMore = displayCount < filteredResources.length;
 
@@ -103,22 +116,27 @@ const Ressources = () => {
     setMinLevel("");
     setMaxLevel("");
     setSortOrder("asc");
+    setTypeFilter("all");
     setDisplayCount(batchSize);
     if (gridRef.current)
       gridRef.current.scrollTo({ top: 0, behavior: "instant" });
   };
-  const handleReturnMenu = () => {
-    navigate("/menu");
-  };
+
+  const handleReturnMenu = () => navigate("/menu");
 
   return (
     <div className="ressources-container">
-      {/* Bouton retour menu */}
-      <button className="logout-btn" onClick={handleReturnMenu}>
+      {/* Bouton retour menu (même look que logout du menu) */}
+      <button
+        className="logout-btn"
+        onClick={handleReturnMenu}
+        aria-label="Retour au menu"
+      >
         <img src={Logout} alt="Retour au menu" className="logout-icon" />
       </button>
 
       <h1 className="ressources-title">📦 Ressources</h1>
+
       {/* Filtres */}
       <div
         className="ressources-filters"
@@ -150,6 +168,19 @@ const Ressources = () => {
           <option value="asc">Niveau ↑</option>
           <option value="desc">Niveau ↓</option>
         </select>
+
+        {/* Filtre par type */}
+        <select
+          value={typeFilter}
+          onChange={(e) => setTypeFilter(e.target.value)}
+        >
+          {types.map((t) => (
+            <option key={t} value={t}>
+              {t === "all" ? "Tous les types" : t}
+            </option>
+          ))}
+        </select>
+
         <button onClick={handleReset}>Réinitialiser</button>
       </div>
 
@@ -157,11 +188,7 @@ const Ressources = () => {
       {loading ? (
         <p className="loading-text">Chargement des ressources...</p>
       ) : (
-        <div className="cards-frame">
-          {/* fades visuels top/bottom */}
-          <div className="cards-fade cards-fade--top" aria-hidden="true" />
-          <div className="cards-fade cards-fade--bottom" aria-hidden="true" />
-
+        <>
           <div
             className="ressources-grid"
             ref={gridRef}
@@ -174,7 +201,6 @@ const Ressources = () => {
                   key={res.ankama_id}
                   className="ressource-card"
                   title={res.name}
-                  tabIndex={0}
                 >
                   <img
                     src={res.image_urls?.icon || res.image_urls?.sd}
@@ -195,7 +221,7 @@ const Ressources = () => {
             {/* Sentinel pour l’infinite scroll */}
             <div ref={sentinelRef} className="infinite-sentinel" />
           </div>
-        </div>
+        </>
       )}
     </div>
   );
