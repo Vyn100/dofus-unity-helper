@@ -2,7 +2,6 @@
   font-family: "FlexiFalse";
   src: url("../../assets/Flexi_IBM_VGA_False.ttf") format("truetype");
 }
-
 @font-face {
   font-family: "FlexiTrue";
   src: url("../../assets/Flexi_IBM_VGA_True.ttf") format("truetype");
@@ -37,9 +36,7 @@
   margin: 15px auto 30px auto;
 }
 
-.pseudo {
-  color: #fce96a;
-}
+.pseudo { color: #fce96a; }
 
 .menu-separateur {
   height: 30px;
@@ -55,35 +52,53 @@
   margin: auto auto 30px auto;
   line-height: 1.6;
 }
+.menu-description p { margin: 3px 0; text-align: center; }
 
-.menu-description p {
-  margin: 3px 0;
-  justify-content: center;
-  text-align: center;
-}
-
+/* ---- BOX ---- */
 .menu-box {
   background-color: #1b1328;
   border: 2px solid gold;
   border-radius: 15px;
-  padding: 30px 40px;
-  width: 800px;
-  height: 350px;
+  padding: 36px 48px;
+  width: 980px;          /* + large */
+  max-width: 95vw;       /* reste responsive */
+  height: 440px;         /* + haut */
   margin: 0 auto;
-  display: flex;
-  align-items: center; /* centrer verticalement */
-  justify-content: center;
-  gap: 50px;
   box-shadow: 0 0 15px #00000066;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;             /* espace entre lignes */
 }
 
+/* Lignes de boutons */
+.menu-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+}
+
+/* 1ère ligne: on évite le wrap sur écrans normaux */
+.menu-row.top { flex-wrap: nowrap; }
+@media (max-width: 900px) {
+  .menu-row.top { flex-wrap: wrap; } /* fallback mobile */
+}
+
+/* 2e ligne: un seul bouton centré */
+.menu-row.single { justify-content: center; margin-top: 20px;}
+
+/* ---- BOUTONS ---- */
 .menu-button {
   font-family: inherit;
   font-weight: bold;
   font-size: 1.6rem;
   padding: 16px 24px;
-  width: 180px; /* largeur fixe raisonnable */
-  height: 100px; /* hauteur fixe pour l'uniformité */
+  width: 180px;
+  height: 100px;
   background: linear-gradient(145deg, #1f1f1f, #2c2c2c);
   color: #fff8dc;
   border: 2px solid #d4a71e;
@@ -92,92 +107,43 @@
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
-  flex-direction: column; /* icône au-dessus du texte */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 6px;
 }
+.menu-button:hover { transform: translateY(-6px); box-shadow: 0 0 20px #ffe066; }
 
-.menu-button:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 20px #ffe066;
-}
+.menu-icon { width: 40px; height: 40px; object-fit: contain; }
 
-.menu-icon {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-}
+/* ---- Dofumon : plus grand, sans texte ---- */
+.menu-button.dofumon { width: 260px; height: 170px; }
+.menu-icon.dofumon-icon { width: 120px; height: 120px; }
+.menu-button.dofumon:hover .dofumon-icon { transform: scale(1.06); }
+
+/* ---- Logout / Account ---- */
 .logout-btn img.logout-icon {
-  width: 40px;
-  height: 40px;
-  transition: transform 0.2s ease, filter 0.2s ease;
+  width: 40px; height: 40px; transition: transform 0.2s ease, filter 0.2s ease;
 }
-.logout-btn:hover img.logout-icon {
-  transform: scale(1.1);
-  filter: drop-shadow(0 0 5px gold);
-}
+.logout-btn:hover img.logout-icon { transform: scale(1.1); filter: drop-shadow(0 0 5px gold); }
 .logout-btn {
-  position: absolute;
-  top: 25px;
-  left: 25px;
-  background: none;
-  border: none;
-  color: gold;
-  display: flex;
-  align-items: center;
-  font-size: 1rem;
-  font-weight: bold;
-  gap: 6px;
-  cursor: pointer;
-  font-family: "FlexiFalse", monospace;
+  position: absolute; top: 25px; left: 25px; background: none; border: none; color: gold;
+  display: flex; align-items: center; font-size: 1rem; font-weight: bold; gap: 6px;
+  cursor: pointer; font-family: "FlexiFalse", monospace;
 }
 
 .account-btn {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  width: 64px;
-  height: 64px;
-  cursor: pointer;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: absolute; top: 30px; right: 30px; width: 64px; height: 64px; cursor: pointer; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
 }
-
-.account-btn img {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  z-index: 2;
-  border-radius: 10px;
-  transition: transform 0.25s ease-in-out;
-}
-
+.account-btn img { width: 100%; height: 100%; position: relative; z-index: 2; border-radius: 10px; transition: transform 0.25s ease-in-out; }
 .account-glow {
-  position: absolute;
-  top: -40%;
-  left: -40%;
-  width: 150%;
-  height: 150%;
-  z-index: 1;
-  border-radius: 50%;
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out;
-  pointer-events: none;
+  position: absolute; top: -40%; left: -40%; width: 150%; height: 150%; z-index: 1; border-radius: 50%;
+  opacity: 0; transition: opacity 0.2s ease-in-out; pointer-events: none;
 }
-
 .account-btn:hover .account-glow {
   opacity: 1;
-  background: radial-gradient(
-    circle,
-    rgba(255, 217, 0, 0.259) 0%,
-    transparent 80%
-  );
+  background: radial-gradient(circle, rgba(255, 217, 0, 0.259) 0%, transparent 80%);
   filter: blur(15px);
 }
-
-.account-btn:hover img {
-  transform: scale(1.2);
-}
+.account-btn:hover img { transform: scale(1.2); }

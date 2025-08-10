@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Ressources.css";
-import Logout from "../../assets/Logout.png"; // icône bouton retour
+import Logout from "../../assets/Logout.png";
 
 const Ressources = () => {
   const navigate = useNavigate();

@@ -1,0 +1,28 @@
+.dofu-app { padding: 20px; color: #fff; text-align: center; }
+
+.dofu-title { font-size: 2.4rem; color: gold; text-shadow: 2px 2px 0 #000; margin: 10px 0 4px; }
+.dofu-sub { opacity: .9; margin-bottom: 16px; }
+
+.dofu-actions { display:flex; gap:10px; justify-content:center; margin-bottom: 12px; }
+.dofu-cta { padding:10px 16px; border-radius:10px; border:1px solid gold; background:#1b1328; color:#fff; cursor:pointer; }
+.dofu-cta.secondary { opacity:.9; }
+.dofu-cta:hover { background: gold; color:#101; }
+
+.dofu-teaser { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:16px; max-width:1000px; margin: 12px auto 0; }
+.dofu-card { background:#1b1328; border:2px solid gold; border-radius:16px; padding:16px; box-shadow:0 0 10px #0006; }
+.dofu-card.disabled { opacity:.6; border-color:#6b5a2a; }
+.dofu-card .mini { margin-top:8px; padding:6px 10px; border-radius:8px; border:1px solid gold; background:#24183a; color:#fff; cursor:pointer; }
+.dofu-note { margin-top: 12px; opacity:.7; }
+
+.dofu-section { color: gold; margin: 8px 0 10px; }
+.dofu-dex .dofu-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:16px; max-height:70vh; overflow:auto; padding-right: 8px; }
+.dofu-mon { background:#1b1328; border:2px solid gold; border-radius:16px; padding:14px; box-shadow:0 0 10px #0006; }
+.dofu-mon img { width:64px; height:64px; object-fit:contain; margin-bottom:6px; }
+.dofu-mon .tags { display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin:4px 0; }
+.tag { font-size:.8rem; padding:2px 6px; border-radius:999px; background:#2a1d3b; border:1px solid #3b2a55; }
+.tag-terre { border-color:#7a5; }
+.tag-eau { border-color:#59a; }
+.tag-feu { border-color:#a55; }
+.tag-air { border-color:#7aa; }
+.lvl, .evo { opacity:.9; margin:0; }
+.evo.none { opacity:.5; }

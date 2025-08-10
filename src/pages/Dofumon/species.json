@@ -1,0 +1,63 @@
+[
+    {
+        "id": "boufton",
+        "name": "Boufton",
+        "elements": [
+            "terre"
+        ],
+        "baseLevel": 1,
+        "catchRate": 60,
+        "icon": "/assets/mobs.png#boufton",
+        "evolvesTo": [
+            "bouftou"
+        ]
+    },
+    {
+        "id": "bouftou",
+        "name": "Bouftou",
+        "elements": [
+            "terre"
+        ],
+        "baseLevel": 10,
+        "catchRate": 45,
+        "icon": "/assets/mobs.png#bouftou",
+        "evolvesTo": [
+            "bouftou-guerre"
+        ]
+    },
+    {
+        "id": "bouftou-guerre",
+        "name": "Bouftou de guerre",
+        "elements": [
+            "terre"
+        ],
+        "baseLevel": 30,
+        "catchRate": 25,
+        "icon": "/assets/mobs.png#bouftou-guerre",
+        "evolvesTo": [
+            "bouftou-royal"
+        ]
+    },
+    {
+        "id": "bouftou-royal",
+        "name": "Bouftou Royal",
+        "elements": [
+            "terre"
+        ],
+        "baseLevel": 80,
+        "catchRate": 10,
+        "icon": "/assets/mobs.png#bouftou-royal",
+        "evolvesTo": []
+    },
+    {
+        "id": "tofu",
+        "name": "Tofu",
+        "elements": [
+            "air"
+        ],
+        "baseLevel": 1,
+        "catchRate": 55,
+        "icon": "/assets/mobs.png#tofu",
+        "evolvesTo": []
+    }
+]
